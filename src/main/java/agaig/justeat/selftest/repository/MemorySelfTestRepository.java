@@ -17,7 +17,8 @@ public class MemorySelfTestRepository implements SelfTestRepository{
     }
 
     @Override
-    public List<SelfTest> findAll() {
+    public List<SelfTest> findAll(Long member_id) {
         return sqlSession.selectList("mapper.SelfTestMapper.findAll");
     }
+
 }

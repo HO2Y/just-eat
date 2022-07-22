@@ -8,12 +8,13 @@ pageEncoding="UTF-8" %>
 <body>
 <div class="container">
   <div>
-    <table summary="목록">
+    <table summary="변동 추이">
     <caption>
-    <span>목록</span>
+    <span>변동 추이</span>
     </caption>
     <thead>
     <tr>
+    <th>번호</th>
     <th>이름</th>
     <th>id</th>
     <th>칼로리</th>
@@ -21,18 +22,10 @@ pageEncoding="UTF-8" %>
     <th>운동량</th>
     </tr>
     </thead>
-
-    <c:if test="${List.size() == 0 }">
-    <tfoot>
-    <tr>
-    <td colspan="3">현재 데이터가 없습니다.</td>
-    /tr>
-    </tfoot>
-    </c:if>
-
     <tbody>
     <c:forEach var="result" items="${selftest}" varStatus="status">
     <tr>
+    <td><c:out value="${status.count}"/></td>
     <td><c:out value="${result.name}"/></td>
     <td><c:out value="${result.member_id}"/></td>
     <td><c:out value="${result.daykcal}"/></td>

@@ -1,5 +1,7 @@
 package agaig.justeat.selftest.controller;
 
+import agaig.justeat.annotation.MemberSignInCheck;
+import agaig.justeat.dto.MemberResponseDto;
 import agaig.justeat.selftest.domain.SelfTest;
 import agaig.justeat.selftest.dto.SelfTestSaveRequestDto;
 import agaig.justeat.selftest.service.SelfTestService;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -22,23 +25,28 @@ public class SelfTestController { //controller 프레젠테이션 계층으로 �
         this.selfTestService = selfTestService;
     }
 
+    @MemberSignInCheck
     @PostMapping("selftest")
-    public String SelfTest(SelfTestSaveRequestDto requestDto, double daykcal, double dayweight, int dayexercise) {
+    public String SelfTest(SelfTestSaveRequestDto requestDto, int daykcal, int dayweight, int dayexercise) {
         selfTestService.save(requestDto.toEntity());
         return "/selftest/SelfTest";
     }
 
+    @MemberSignInCheck
     @GetMapping("selftest")
     public String SelfTestFoundation() {
         return "/selftest/SelfTestFoundation";
     }
 
+    @MemberSignInCheck
     @GetMapping("list")
-    public String list(Model model) {
-        List<SelfTest> selfTests = selfTestService.findMembers();
+    public String list(HttpSession session, Model model) {
+        MemberResponseDto responseDto = (MemberResponseDto) session.getAttribute("session");
+        List<SelfTest> selfTests = selfTestService.findMembers(responseDto.getMember_id());
         model.addAttribute("selftest", selfTests); //model에 담기
         return "selftest/SelfTestList";
     }
+
 
 }
 
