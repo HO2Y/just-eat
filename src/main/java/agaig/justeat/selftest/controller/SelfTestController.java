@@ -35,8 +35,8 @@ public class SelfTestController { //controller 프레젠테이션 계층으로 �
 
     @GetMapping("list")
     public String list(Model model) {
-        List<SelfTest> selfTests = selfTestService.findMembers();
-        model.addAttribute("selfTests", selfTests); //model에 담기
+        List<SelfTest> selfTests = selfTestService.findOne(Long.valueOf(list(model)));
+        model.addAttribute("selfTests", selfTests); //view에 key-value 값으로 전달
         return "selftest/SelfTestList";
     }
 
