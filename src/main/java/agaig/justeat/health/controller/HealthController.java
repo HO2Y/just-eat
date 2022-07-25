@@ -3,7 +3,6 @@ package agaig.justeat.health.controller;
 import agaig.justeat.health.domain.Health;
 import agaig.justeat.member.domain.Member;
 import agaig.justeat.health.service.HealthService;
-import agaig.justeat.member.dto.MemberResponseDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,20 +23,29 @@ public class HealthController {
     }
 
     @GetMapping("")
+    public String memberHealth(HttpSession session, Health health, Model model) {
+        health.setMember_id((Long) session.getAttribute("session"));
+        health = healthService.findHealth(health.getMember_id());
+        System.out.println(health.getKcal());
+        model.addAttribute("health", health);
+
+        return "/health/memberHealth";
+    }
+
+    @GetMapping("new")
     public String healthTest() {
         return "/health/healthTest";
     }
 
-    @PostMapping("")
-    public String health(HttpSession session, Health health, Model model, Member member, MemberResponseDto responseDto) {
-        responseDto = (MemberResponseDto) session.getAttribute("session");
-        member.setName("기유진");
-        member.setBirth("19931217");
-        member.setGender("여");
-        health.setMember_id(responseDto.getMember_id());
-        healthService.save(health,member);
-        List<Health> memberHealth = healthService.memberHealth();
-        model.addAttribute("health", memberHealth);
-        return "/health/memberHealth";
+    @PostMapping("new")
+    public String save(HttpSession session, Member member, Health health) {
+        member.setMember_id((Long) session.getAttribute("session"));
+        health.setMember_id(member.getMember_id());
+        member = healthService.findMember(member.getMember_id());
+        healthService.save(health, member);
+
+        return "redirect:/health";
     }
+
+
 }
