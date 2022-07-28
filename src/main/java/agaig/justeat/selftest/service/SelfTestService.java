@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SelfTestService { //service는 프레젠테이션(뷰)에서 직접 엔티티에 접근하지 않고, 비즈니스 로직을 처리할 수 있도록하는 계층
@@ -18,11 +17,11 @@ public class SelfTestService { //service는 프레젠테이션(뷰)에서 직접
         this.selfTestRepository = selfTestRepository;
     }
 
-    public void save(SelfTest selfTest) {
-        selfTestRepository.save(selfTest);
+    public Long save(SelfTest selfTest) {
+        return selfTestRepository.save(selfTest);
     }
 
-    public List<SelfTest> findOne(Long member_id) {
+    public List<SelfTest> findMembers(Long member_id) {
         return selfTestRepository.findById(member_id);
     }
 }

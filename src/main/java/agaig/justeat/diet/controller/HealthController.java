@@ -1,16 +1,15 @@
-package agaig.justeat.health.controller;
+package agaig.justeat.diet.controller;
 
-import agaig.justeat.health.domain.Health;
+import agaig.justeat.diet.domain.Health;
 import agaig.justeat.member.domain.Member;
-import agaig.justeat.health.service.HealthService;
+import agaig.justeat.diet.service.HealthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpSession;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/health")
@@ -23,13 +22,20 @@ public class HealthController {
     }
 
     @GetMapping("")
-    public String memberHealth(HttpSession session, Health health, Model model) {
+    public String memberHealth(HttpSession session, Health health, Member member, Model model) {
         health.setMember_id((Long) session.getAttribute("session"));
         health = healthService.findHealth(health.getMember_id());
-        System.out.println(health.getKcal());
-        model.addAttribute("health", health);
 
-        return "/health/memberHealth";
+        if (health.isHealthFlag()) {
+            member.setMember_id(health.getMember_id());
+            member = healthService.findMember(member.getMember_id());
+            model.addAttribute("health", health);
+            model.addAttribute("name", member.getName());
+
+            return "/health/memberHealth";
+        } else {
+            return "redirect:/new";
+        }
     }
 
     @GetMapping("new")
