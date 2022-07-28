@@ -32,7 +32,7 @@ pageEncoding="UTF-8" %>
     <tr>
     <tbody>
     <div class="member-btn-c">
-    <h1>${name}님의 일일 변화 !</h1>
+    <h1>${name}님의 헬스 다이어리 !</h1>
     </div>
     <%request.setCharacterEncoding("UTF-8");%>
 

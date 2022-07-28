@@ -15,7 +15,7 @@ pageEncoding="UTF-8" %>
     <div class="member-out-box">
         <center>
         <div class="member-btn-c">
-        <h1>${param.name}님의 헬스 다이어리</h1>
+        <h1>${param.name}님의 하루 다이어리</h1>
         </div>
         <%request.setCharacterEncoding("UTF-8");%>
 
