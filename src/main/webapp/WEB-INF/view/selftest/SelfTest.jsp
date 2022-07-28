@@ -29,7 +29,7 @@ pageEncoding="UTF-8" %>
 
         <button class="member-btn-d" onclick="location.href='/'" >
         <h3>홈으로 돌아가기</h3>
-        <button type="button" class="member-btn-d" onClick="location.href='health'">
+        <button type="button" class="member-btn-d" onClick="location.href='new'">
         <h3>헬스 테스트 하러가기</h3>
         <button type="button" class="member-btn-d" onClick="location.href='list'">
         <h3>나의 헬스 다이어리 보러 가기</h3>

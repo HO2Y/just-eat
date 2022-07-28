@@ -9,6 +9,16 @@
   	`birth`	INT	NULL
 );
 
+CREATE TABLE `selftest` (
+    `member_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name`	VARCHAR(100)	NOT NULL,
+  	`daykcal`	INT	not NULL,
+    `dayweight`	INT	not NULL,
+    `dayexercise`	INT	not NULL,
+    `regDate` TIMESTAMP DEFAULT NOW(),
+    `regDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
 CREATE TABLE `health` (
 	`member_id`	BIGINT	NOT NULL PRIMARY KEY,
 	`health_flag` BOOLEAN NOT NULL DEFAULT 0,
