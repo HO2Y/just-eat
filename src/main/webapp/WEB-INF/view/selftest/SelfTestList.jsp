@@ -29,13 +29,13 @@ pageEncoding="UTF-8" %>
     /tr>
     </tfoot>
     </c:if>
-    <tr>
+
     <tbody>
     <div class="member-btn-c">
     <h1>${name}님의 헬스 다이어리 !</h1>
     </div>
     <%request.setCharacterEncoding("UTF-8");%>
-
+    <tr>
     <c:forEach var="result" items="${selfTests}" varStatus="status">
     <td><c:out value="| ${result.regDate} | "/></td>
     <td><c:out value="| ${result.daykcal}kcal | "/></td>

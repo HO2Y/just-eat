@@ -18,7 +18,7 @@ pageEncoding="UTF-8" %>
   <p></p>
 
     <div class="member-btn-c">
-    <center><h1>헬스 다이어리!</h1></center>
+    <center><h1>헬스 다이어리 설문지!</h1></center>
     </div>
     <br/>
     <center><h3>오늘 하루동안 섭취한 칼로리를 입력하세요.</h3>

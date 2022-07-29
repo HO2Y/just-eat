@@ -10,7 +10,7 @@
 );
 
 CREATE TABLE `selftest` (
-    `member_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `member_id`	BIGINT	NOT NULL AUTO_INCREMENT,
     `name`	VARCHAR(100)	NOT NULL,
   	`daykcal`	INT	not NULL,
     `dayweight`	INT	not NULL,

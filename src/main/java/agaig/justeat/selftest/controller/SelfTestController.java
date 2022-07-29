@@ -28,13 +28,13 @@ public class SelfTestController { //controller 프레젠테이션 계층으로 �
     }
 
     @PostMapping("selftest")
-    public String SelfTest(HttpSession session, SelfTestSaveRequestDto requestDto, int daykcal, int dayweight, int dayexercise, Model model) {
+    public String SelfTest(SelfTestSaveRequestDto requestDto, int daykcal, int dayweight, int dayexercise) {
         selfTestService.save(requestDto.toEntity());
         return "/selftest/SelfTest";
     }
 
     @GetMapping("selftest")
-    public String SelfTestFoundation(SelfTestSaveRequestDto requestDto, HttpSession session, Model model) {
+    public String SelfTestFoundation(HttpSession session, Model model) {
         MemberUpdateResponseDto responseDto = memberService.findInfoById((Long) session.getAttribute("session"));
         model.addAttribute("name", responseDto.getName());
         return "/selftest/SelfTestFoundation";

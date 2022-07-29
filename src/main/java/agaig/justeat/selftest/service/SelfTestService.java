@@ -12,7 +12,7 @@ public class SelfTestService { //service는 프레젠테이션(뷰)에서 직접
                                //Repository에 정의된 비즈니스 로직을 처리하거나 직접 엔티티에 접근
     private final SelfTestRepository selfTestRepository;
 
-    @Autowired //필요한 의존 객체의 타입에 해당하는 빈을 찾아 주입
+    @Autowired
     public SelfTestService(SelfTestRepository selfTestRepository) {
         this.selfTestRepository = selfTestRepository;
     }
