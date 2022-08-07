@@ -10,7 +10,11 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       <link rel="stylesheet" href="/css/style.css" />
    </head>
    <body>
-      <form action="/members/signUp" method="post" onsubmit="return formCheck(this)">
+      <form
+         action="/members/signUp"
+         method="post"
+         onsubmit="return formCheck(this)"
+      >
          <div class="member-out-box">
             <div class="member-submit-box">
                <img
@@ -22,6 +26,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                <div class="member-title" style="font-size: 16px">
                   Just Eat 에 오신 것을 환영합니다.
                </div>
+               <div class="warning-msg" id="msg"></div>
                <input
                   class="member-input-text"
                   type="text"
@@ -38,7 +43,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                <input
                   class="member-input-text"
                   type="text"
-                  name="name"
+                  name="nickname"
                   placeholder="이름"
                />
                <input
@@ -63,20 +68,24 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                <div class="select-gender" role="radio-group">
                   <input
                      type="radio"
-                     id="man"
+                     id="male"
                      name="sex"
-                     onclick="document.querySelector('#name').value = 'man'"
-                  /><label for="man">남성</label>
+                     onclick="document.querySelector('#name').value = 'male'"
+                  /><label for="male">남성</label>
                   <input
                      type="radio"
-                     id="woman"
+                     id="female"
                      name="sex"
-                     onclick="document.querySelector('#name').value = 'woman'"
-                  /><label for="woman">여성</label>
+                     onclick="document.querySelector('#name').value = 'female'"
+                  /><label for="female">여성</label>
                </div>
                <button class="member-btn-a" type="submit">회원 가입</button>
+               <button class="member-btn-b" onclick="location.href='/'">
+                  홈으로 돌아가기
+               </button>
             </div>
          </div>
       </form>
+      <script src="/js/app.js"></script>
    </body>
 </html>

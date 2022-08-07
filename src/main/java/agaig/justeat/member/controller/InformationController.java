@@ -5,6 +5,7 @@ import agaig.justeat.member.domain.Information;
 import agaig.justeat.member.domain.PageHandler;
 import agaig.justeat.member.dto.InfoResponseDto;
 import agaig.justeat.member.dto.InfoSaveRequestDto;
+import agaig.justeat.member.dto.InfoUpdateRequestDto;
 import agaig.justeat.member.dto.MemberUpdateResponseDto;
 import agaig.justeat.member.service.InformationService;
 import agaig.justeat.member.service.MemberService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -41,13 +43,17 @@ public class InformationController {
         List<Information> boardList = informationService.getPage(map);
         model.addAttribute("infoBoardList", boardList);
         model.addAttribute("pageHandler", pageHandler);
+        model.addAttribute(page);
+        model.addAttribute(pageSize);
         return "information/infoList";
     }
 
     @GetMapping("/{info_id}")
-    public String infoRead(@PathVariable Long info_id, Model model) {
+    public String infoRead(@PathVariable Long info_id, Integer page, Integer pageSize, Model model) {
         InfoResponseDto responseDto = informationService.read(info_id);
         model.addAttribute("info", responseDto);
+        model.addAttribute(page);
+        model.addAttribute(pageSize);
         return "/information/info";
     }
 
@@ -67,9 +73,19 @@ public class InformationController {
     }
 
     @GetMapping("/delete/{member_id}/{info_id}")
-    public String infoDelete(@PathVariable Long member_id, @PathVariable Long info_id, HttpSession session) {
+    public String infoDelete(@PathVariable Long member_id, @PathVariable Long info_id, HttpSession session, RedirectAttributes attributes) {
         memberService.verify(member_id, session);
-        informationService.remove(info_id, member_id);
+        Long remove = informationService.remove(info_id, member_id);
+        if (remove == 1) {
+            attributes.addFlashAttribute("msg", "DEL_OK");
+        }
         return "redirect:/info/list";
+    }
+
+    @MemberSignInCheck
+    @GetMapping("/modify/{member_id}/{info_id}")
+    public String modify(@PathVariable Long member_id, @PathVariable Long info_id, HttpSession session, InfoUpdateRequestDto requestDto) {
+        memberService.verify(member_id, session);
+        return "/info/infoModify";
     }
 }

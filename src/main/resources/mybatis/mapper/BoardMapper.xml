@@ -3,31 +3,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="agaig.justeat.jiwon.model.aws.dao.BoardMapper">
+<mapper namespace="agaig.justeat.board.model.aws.dao.BoardMapper">
 
-    <select id="findAll" resultType="agaig.justeat.jiwon.domain.Articles">
+    <select id="findAll" resultType="agaig.justeat.board.domain.Articles">
         SELECT *
         FROM articles
-
+        order by article_id
+        desc
     </select>
-<!-- create 수정-->
+
+    <!-- Create -->
     <insert id="create" >
-        INSERT INTO articles(article_title,article_text,member_id,article_writer)
-        VALUES(#{article_title},#{article_text},#{member_id},#{article_writer});
+        INSERT INTO articles(article_title,article_text,member_id,article_writer,reNum)
+        VALUES(#{article_title},#{article_text},#{member_id},#{article_writer},0);
     </insert>
 
-    <select id="findOne" resultType="agaig.justeat.jiwon.domain.Articles">
+    <select id="findOne" resultType="agaig.justeat.board.domain.Articles">
         SELECT * FROM articles where article_id=#{article_id} ;
     </select>
 
+    <!-- Delete -->
     <delete id="deleteList">
         DELETE from articles where article_id=#{article_id} ;
     </delete>
 
+    <!-- Update -->
     <update id="update">
         UPDATE articles
         SET article_title=#{article_title}, article_text=#{article_text}
         WHERE article_id=#{article_id} ;
     </update>
+
+    <!-- 조회수 -->
+    <update id="updateCnt" parameterType="Long">
+        UPDATE articles
+        SET reNum=reNum+1
+        WHERE article_id=#{article_id} ;
+    </update>
+
+    <!-- 댓글 기능 -->
+    <select id="findAllComments" resultType="agaig.justeat.board.domain.Comments">
+        SELECT *
+        FROM comments
+        WHERE article_id = #{article_id};
+    </select>
+
+    <insert id="commentsWrite">
+        INSERT INTO comments(comment_text,comment_writer,member_id,article_id)
+        VALUES(#{comment_text},#{comment_writer},#{member_id},#{article_id});
+    </insert>
+
 
 </mapper>

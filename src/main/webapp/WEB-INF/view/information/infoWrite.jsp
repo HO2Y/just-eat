@@ -13,7 +13,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <div class="box">
       <div class="article-box">
         <form
-          action="<c:url value='/info/write/${sessionScope.session.member_id}'/>"
+          action="<c:url value='/info/write/${sessionScope.session}'/>"
           method="post"
         >
           <div class="member-title">공지사항 작성</div>
